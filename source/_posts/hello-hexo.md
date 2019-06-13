@@ -1,9 +1,26 @@
 ---
-title: Hello World
+title: Hello Hexo 
 ---
 Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
 
 ## Quick Start
+
+### Install Hexo Client
+
+``` bash
+$ npm install hexo-cli -g 	#install hexo
+$ hexo init blog 	#create a folder and init it
+$ cd blog
+$ npm install				
+$ hexo server
+```
+
+### Change Theme
+``` bash
+$ git clone https://github.com/theme-next/hexo-theme-next themes/next
+```
+edit `file _config.yml`
+
 
 ### Create a new post
 
@@ -32,6 +49,7 @@ More info: [Generating](https://hexo.io/docs/generating.html)
 ### Deploy to remote sites
 
 ``` bash
+$ npm install hexo-deployer-git --save #install hexo git
 $ hexo deploy
 ```
 
