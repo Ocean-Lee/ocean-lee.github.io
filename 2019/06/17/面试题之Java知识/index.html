@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.2" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Java基础知识123456789101. 为什么需要public staic void main(String[] args)这个方法Answer:这个方法是Java程序的入口，JVM在运行时按照上面的方法签名(必须有staic和public修饰，返回值必须是void，参数列表必须是字符串数组)查找方法的入口地址。因为要调用类中的方法必须要实例化该类，而main是程序的入口，此时还没有实例化对象">
+<meta name="keywords" content="Java面试题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试题之Java知识">
+<meta property="og:url" content="http://yoursite.com/2019/06/17/面试题之Java知识/index.html">
+<meta property="og:site_name" content="Ocean&#39;s Blog">
+<meta property="og:description" content="Java基础知识123456789101. 为什么需要public staic void main(String[] args)这个方法Answer:这个方法是Java程序的入口，JVM在运行时按照上面的方法签名(必须有staic和public修饰，返回值必须是void，参数列表必须是字符串数组)查找方法的入口地址。因为要调用类中的方法必须要实例化该类，而main是程序的入口，此时还没有实例化对象">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-18T15:47:02.763Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试题之Java知识">
+<meta name="twitter:description" content="Java基础知识123456789101. 为什么需要public staic void main(String[] args)这个方法Answer:这个方法是Java程序的入口，JVM在运行时按照上面的方法签名(必须有staic和public修饰，返回值必须是void，参数列表必须是字符串数组)查找方法的入口地址。因为要调用类中的方法必须要实例化该类，而main是程序的入口，此时还没有实例化对象">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/06/17/面试题之Java知识/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>面试题之Java知识 | Ocean's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ocean's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/17/面试题之Java知识/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Ocean Lee">
+      <meta itemprop="description" content="泰山崩于前，仍然沐浴更衣焚香沏茶">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ocean's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试题之Java知识
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-17 15:54:55" itemprop="dateCreated datePublished" datetime="2019-06-17T15:54:55+08:00">2019-06-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-06-18 23:47:02" itemprop="dateModified" datetime="2019-06-18T23:47:02+08:00">2019-06-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/面试题/" itemprop="url" rel="index"><span itemprop="name">面试题</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Java基础知识"><a href="#Java基础知识" class="headerlink" title="Java基础知识"></a>Java基础知识</h3><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>为什么需要public staic void main(String[] args)这个方法</span><br><span class="line"></span><br><span class="line">Answer:这个方法是Java程序的入口，JVM在运行时按照上面的方法签名(必须有staic和public修饰，返回值必须是void，参数列表必须是字符串数组)查找方法的入口地址。</span><br><span class="line">因为要调用类中的方法必须要实例化该类，而main是程序的入口，此时还没有实例化对象，因此要在不实例化对象的前提下调用main方法，所以main方法前要加staic和public</span><br><span class="line"></span><br><span class="line">注：</span><br><span class="line">a. main方法前面的staic和public没有顺序要求</span><br><span class="line">b. main方法可以被final和synchronized修饰</span><br><span class="line">c. main一定要被public和static修饰，一定不能被abstract修饰</span><br><span class="line">d. 若一个.java文件中含有多个类，则只有与文件名相同的被public修饰的类中的main方法才是程序的入口</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">2. </span>如何实现在main()方法执行前输出"Hello World"</span><br><span class="line"></span><br><span class="line">Answer:</span><br><span class="line">在类加载完成时，调main方法之前</span><br><span class="line"></span><br><span class="line">Reference：</span><br><span class="line">类加载</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">3. </span>Java程序初始化的顺序是怎么样的（一个类的初始化顺序是怎么样的）？</span><br><span class="line"></span><br><span class="line">Answer:</span><br><span class="line">把握住一个大方向：</span><br><span class="line">变量-&gt;代码块-&gt;对象的构造函数</span><br><span class="line"></span><br><span class="line">记住三个原则：</span><br><span class="line">a.静态对象(变量)优于非静态对象(变量)的初始化,其中静态对象(变量)只初始化一次，非静态对象(变量)可以初始化多次</span><br><span class="line">b.父类优先于子类初始化</span><br><span class="line">c.按照成员变量的定义顺序进行初始化</span><br><span class="line"></span><br><span class="line">记住一个事例</span><br><span class="line">父类静态变量-&gt;父类静态代码块-&gt;子类静态变量-&gt;子类静态代码块-&gt;父类非静态变量-&gt;父类非静态代码块-&gt;父类构造方法-&gt;子类非静态变量-&gt;子类非静态代码块-&gt;子类构造方法</span><br><span class="line"></span><br><span class="line">Reference：</span><br><span class="line">类加载过程</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">4. </span>Java中的作用域有哪些</span><br><span class="line"></span><br><span class="line">声明在不同位置的变量具有不同的作用域，作用域指变量的生命周期或可见性</span><br><span class="line"></span><br><span class="line">Answer:</span><br><span class="line"></span><br><span class="line">Java中变量的作用域是指变量的生命周期和可见性。Java中的变量分为三种：静态变量（全局变量）、成员变量、局部变量</span><br><span class="line"></span><br><span class="line">a.静态变量的作用域</span><br><span class="line">在类加载的时候，JVM为静态变量分配存储空间，静态变量不属于任何特定实例，而是被所有实例共享</span><br><span class="line"></span><br><span class="line">b.成员变量的作用域</span><br><span class="line">与类的实例化对象的作用范围相同。当类完成实例化，成员变量就会在内存中分配空间并初始化，直到对象被回收，成员变量的生命周期才会结束</span><br><span class="line"></span><br><span class="line">c.局部变量的作用域</span><br><span class="line">所在的花括号内</span><br><span class="line"></span><br><span class="line">Java中提供四个关键字来保证变量的可见性</span><br><span class="line"></span><br><span class="line">public  当前类 同一个包  子类  其他包  都可见</span><br><span class="line">private 只在当前类中可见</span><br><span class="line">protected 当前类，同一包、子类中可见</span><br><span class="line">default  当前类、同一包可见，子类、其他包中</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">注意：</span><br><span class="line">a.public、private、protected、default不能修饰局部变量</span><br><span class="line">b.private和protected不能修饰类，只有public、final和abstract可以修饰类</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">5. </span>一个Java文件中是否可以定义多个类</span><br><span class="line"></span><br><span class="line">Answer:</span><br><span class="line">一个Java文件中可以定义多个类。但是有且仅有一个类被public修饰且被修饰的类与Java文件的文件名相同。</span><br><span class="line">若所有类未被public修饰，则java文件名随便是一个类的文件名即可</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">6. </span>什么是构造函数</span><br><span class="line"></span><br><span class="line">Answer：</span><br><span class="line">构造函数是一种特殊的函数，用来在对象实例化的时候初始化对象的成员变量</span><br><span class="line"></span><br><span class="line">构造函数的特点</span><br><span class="line">a. 特殊的函数，与类同名且没有返回值（返回值也不能为void）</span><br><span class="line">b. 每个类可以有多个构造方法，每个构造方法可以有至少零个参数，若没有提供构造器，编译器默认提供一个无参数的构造方法</span><br><span class="line">c. new操作可以调用构造函数，不能在代码中直接调用</span><br><span class="line">d. 构造函数的主要目的是完成对象的初始化工作</span><br><span class="line">e. 构造函数不能被继承，因此，子类不能重写父类的构造函数</span><br><span class="line">f. 如果父类中没有默认的的构造函数，则在子类中一定要显示的用super显示调用父类的构造函数。如果父类中有默认的构造函数，则在子类中可以不显示的调用super()</span><br><span class="line">g. 默认构造函数的修饰符只与当前类的修饰符有关（若一个类被public修饰，则它的构造函数也是public）</span><br><span class="line"></span><br><span class="line">Reference</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">7. </span>为什么Java中有些接口没有任何方法（标记接口有什么用）</span><br><span class="line"></span><br><span class="line">Answer：</span><br><span class="line">问什么引入接口？什么是接口？接口有什么特征？</span><br><span class="line">Java只支持单继承，为了弥补单继承的缺陷引入接口，一个类可以实现多个接口</span><br><span class="line">接口是一种特殊的抽象方法，接口中只包含方法的定义，不包含方法的实现（接口中的常量值默认使用public static final修饰,方法默认使用public修饰；Java8中在接口中可以包含default方法实现）</span><br><span class="line">如果一个接口中没有任何方法定义，则该接口称为标记接口。标记接口是计算机科学中的一种设计思路，</span><br><span class="line">标记接口的作用是：给实现它的类添加一个元数据信息，可以使用InstanceOf进行类型查询</span><br><span class="line"></span><br><span class="line">Reference</span><br><span class="line">查询一下关于标记接口的文献</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">8. </span>Java中的clone方法有什么作用(如何从已有的对象A创建出与A状态相同的对象，并且修改B的状态不会影响到A的状态)?</span><br><span class="line"></span><br><span class="line">Answer：</span><br><span class="line">Java中提供clone方法来实现这个需求</span><br><span class="line"></span><br><span class="line">使用该方法的步骤</span><br><span class="line">a.类要实现Cloneable接口</span><br><span class="line">b.类中重写clone方法</span><br><span class="line">c.在clone方法中调用父类的clone方法(super.clone)完成复制（备注：如果是深复制，还需要对对象中的非基本数据类型也调用clone()方法完成复制）</span><br><span class="line"></span><br><span class="line">浅复制与深复制</span><br><span class="line">浅复制：被复制的对象所有的值与原来的一样，所有对象的引用都指向原来的对象</span><br><span class="line">深复制：被复制的对象所有的值与原来的一样，新对象的引用指向被复制的新对象</span><br><span class="line"></span><br><span class="line">基本数据类型可以用浅克隆</span><br><span class="line">非基本数据类型要用深克隆</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">9. </span>什么是反射机制？</span><br><span class="line"></span><br><span class="line">Answer:</span><br><span class="line">实现在运行时对类进行装载（在运行时动态的创建对象），增加程序的灵活性。</span><br><span class="line"></span><br><span class="line">引申问题</span><br><span class="line">Q1:如何获取Class类？</span><br><span class="line">a.Class.forName()</span><br><span class="line">b.类名.class</span><br><span class="line">c.实例.getClass()</span><br><span class="line"></span><br><span class="line">Q2:Java创建对想的方式有哪些</span><br><span class="line">a.通过new语句实例化</span><br><span class="line">b.通过反射机制，newInstance</span><br><span class="line">c.通过clone方法</span><br><span class="line">d.通过反序列化</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">10. </span>package有什么作用？</span><br><span class="line"></span><br><span class="line">Answer:</span><br><span class="line">a.解决命名冲突</span><br><span class="line">b.对类按功能进行分类，是项目组织更加清晰</span><br><span class="line"></span><br><span class="line">注意：</span><br><span class="line">a.package语句在源文件的第一行</span><br><span class="line">b.javac命令编译源文件后，会将源文件移动到packagename下</span><br><span class="line">c.java命令：java packagename.sourcename</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">11. </span>继承和组合的区别</span><br><span class="line"></span><br><span class="line">Answer:</span><br><span class="line">目的：代码复用</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">12. </span>Java中提供了哪两种用于多态的机制（多态实现的机制是什么）？</span><br><span class="line"></span><br><span class="line">Answer:</span><br><span class="line">编译时多态和运行时多态</span><br><span class="line">编译时多态是通过方法重载实现的</span><br><span class="line">运行时多态是通过方法重写实现的</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">13. </span>重载和重写有什么区别？</span><br><span class="line"></span><br><span class="line">Answer:</span><br><span class="line">重载特点</span><br><span class="line">a.通过不同的方法参数来区分，不能通过方法的访问权限、返回类型和抛出的异常来区分</span><br><span class="line">b.子类不能重载父类的private方法</span><br><span class="line"></span><br><span class="line">重写特点</span><br><span class="line">a.子类的函数名和参数、返回值和抛出的异常要与父类一致</span><br><span class="line">b.子类不能重写父类的private方法</span><br><span class="line"></span><br><span class="line">重载与重写的区别</span><br><span class="line">a.重写要求参数列表相同；重载要求参数列表不同</span><br><span class="line">b.重写中，调用方法体是根据对象的类型（对象对应存储空间类型）来决定；重载是根据调用时的实参表与形参表来选择方法体</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">14. </span>抽象类和接口有什么区别？</span><br><span class="line"></span><br><span class="line">Answer:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">15. </span>this和super有什么区别？</span><br><span class="line"></span><br><span class="line">Answer:</span><br><span class="line">this指向当前实例对象，super指向当前实例对象的父对象</span><br><span class="line">三种用途</span><br><span class="line">a.普通引用</span><br><span class="line">b.形参和成员变量重名，用this来区分；子类成员变量或方法与父类中的成员变量或方法重名，用super来区分</span><br><span class="line">c.引用构造函数。this(参数)、super(参数)，调用响应的构造函数。特别注意this(参数)和super(参数),必须放在构造方法中的第一行</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">16. </span>内部类有哪些？</span><br><span class="line"></span><br><span class="line">思路：</span><br><span class="line">从三个角度（内部类和外部类），理清楚下面的关系</span><br><span class="line">a.变量（成员变量和静态变量）和方法（成员方法和静态方法）的定义</span><br><span class="line">b.调用关系</span><br><span class="line">变量之间的调用</span><br><span class="line">方法之间的调用</span><br><span class="line">方法中调用变量</span><br><span class="line">c.实例化的先后顺序</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Answer:</span><br><span class="line">内部类有四种</span><br><span class="line">a.静态内部类</span><br><span class="line">静态内部类中关于变量和方法的定义与普通类没有区别</span><br><span class="line">静态内部类可以直接访问外部类的静态变量和静态方法</span><br><span class="line">静态内部类不依赖外部类实例而被实例化</span><br><span class="line"></span><br><span class="line">b.成员内部类</span><br><span class="line">成员内部类中只能定义成员变量和成员方法，不能定义静态变量和静态方法</span><br><span class="line">成员内部类可以自由的访问外部类的变量和方法，无论是静态的还是非静态的</span><br><span class="line">只有外部类被实例化了，成员内部类才能被实例化</span><br><span class="line"></span><br><span class="line">c.局部内部类</span><br><span class="line">定义在代码块中，只存活在当前的代码块中</span><br><span class="line">只能访问代码块中的final变量</span><br><span class="line"></span><br><span class="line">d.匿名内部类（没有类名的内部类）</span><br><span class="line">匿名内部类使用原则</span><br><span class="line">a.不能有构造函数</span><br><span class="line">b.不能被class、implement、extend、public、protected、private、static关键字修饰</span><br><span class="line">c.不能定义静态成员、方法、类</span><br><span class="line">d.new后面一定是一个匿名内部类必须继承其他类或实现其他接口</span><br><span class="line">e.只能创建匿名内部类的一个实例</span><br><span class="line">f.匿名内部类的本质是局部内部类</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">17. </span>如何获取父类的类名</span><br><span class="line"></span><br><span class="line">Answer:</span><br><span class="line">Java中提供了对象.getClass.getName方法来获取类的名称。如果想获取父类的类名自然会想到如下方法</span><br><span class="line">super.getClass.getName(),但是真的能够获取到父类的名称吗？不能。因为getClass方法来自Object类，getClass()</span><br><span class="line">方法被final native 修饰，不能不子类重写，所以super.getClass()和this.getClass()调的都是Object的getClass()，而getClass()方法</span><br><span class="line">是获取Object的运行时类，故super.getClass.getName()获取不到父类的名称</span><br><span class="line"></span><br><span class="line">解决方法，通过反射机制，调用getClass().getSuperClass().getName来获取</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/Java面试题/" rel="tag"># Java面试题</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/17/链表/" rel="next" title="链表">
+                <i class="fa fa-chevron-left"></i> 链表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/17/面试题之数据结构与算法/" rel="prev" title="面试题之数据结构与算法">
+                面试题之数据结构与算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Ocean Lee">
+            
+              <p class="site-author-name" itemprop="name">Ocean Lee</p>
+              <div class="site-description motion-element" itemprop="description">泰山崩于前，仍然沐浴更衣焚香沏茶</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java基础知识"><span class="nav-number">1.</span> <span class="nav-text">Java基础知识</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ocean Lee</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.2</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.2"></script>
+
+  <script src="/js/motion.js?v=7.1.2"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.2"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.2"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.2"></script>
+<script src="/js/post-details.js?v=7.1.2"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.2"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
