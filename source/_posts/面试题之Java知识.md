@@ -1,5 +1,5 @@
 ---
-title: 面试题之Java知识
+title: 面试题之Java基础知识
 date: 2019-06-17 15:54:55
 categories:
 - 面试题
@@ -264,12 +264,12 @@ c.局部内部类
 
 d.匿名内部类（没有类名的内部类）
 匿名内部类使用原则
-a.不能有构造函数
-b.不能被class、implement、extend、public、protected、private、static关键字修饰
-c.不能定义静态成员、方法、类
-d.new后面一定是一个匿名内部类必须继承其他类或实现其他接口
-e.只能创建匿名内部类的一个实例
-f.匿名内部类的本质是局部内部类
+* 不能有构造函数
+* 不能被class、implement、extend、public、protected、private、static关键字修饰
+* 不能定义静态成员、方法、类
+* new后面一定是一个匿名内部类必须继承其他类或实现其他接口
+* 只能创建匿名内部类的一个实例
+* 匿名内部类的本质是局部内部类
 
 ```
 
