@@ -96,17 +96,18 @@
 
 
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="摘要1.HashMap实现时用到的数据结构2.HashMap实现的原理3.重写equals方法需要同时重写hashCode方法的原因 一、HashMap实现时用到的数据结构###哈希表1.什么是哈希表 ###链表 ###红黑树 二、HashMap的实现原理###1.存储结构是什么样的java7以前采用数组+链表的形式,数组用来实现哈希表，链表用来解决哈希冲突，在java8中，对于节点数大于8的链表">
+<meta name="keywords" content="数据结构,源码分析">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello Hexo">
-<meta property="og:url" content="http://yoursite.com/2019/06/17/hello-hexo/index.html">
+<meta property="og:title" content="HashMap实现分析">
+<meta property="og:url" content="http://yoursite.com/2019/07/07/HashMap实现分析/index.html">
 <meta property="og:site_name" content="Ocean&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="摘要1.HashMap实现时用到的数据结构2.HashMap实现的原理3.重写equals方法需要同时重写hashCode方法的原因 一、HashMap实现时用到的数据结构###哈希表1.什么是哈希表 ###链表 ###红黑树 二、HashMap的实现原理###1.存储结构是什么样的java7以前采用数组+链表的形式,数组用来实现哈希表，链表用来解决哈希冲突，在java8中，对于节点数大于8的链表">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-17T12:54:25.088Z">
+<meta property="og:updated_time" content="2019-07-07T14:16:21.480Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello Hexo">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="HashMap实现分析">
+<meta name="twitter:description" content="摘要1.HashMap实现时用到的数据结构2.HashMap实现的原理3.重写equals方法需要同时重写hashCode方法的原因 一、HashMap实现时用到的数据结构###哈希表1.什么是哈希表 ###链表 ###红黑树 二、HashMap的实现原理###1.存储结构是什么样的java7以前采用数组+链表的形式,数组用来实现哈希表，链表用来解决哈希冲突，在java8中，对于节点数大于8的链表">
 
 
 
@@ -114,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/06/17/hello-hexo/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/07/HashMap实现分析/">
 
 
 
@@ -124,7 +125,7 @@
   };
 </script>
 
-  <title>Hello Hexo | Ocean's Blog</title>
+  <title>HashMap实现分析 | Ocean's Blog</title>
   
 
 
@@ -323,7 +324,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/17/hello-hexo/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/07/HashMap实现分析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ocean Lee">
@@ -340,7 +341,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello Hexo
+          <h1 class="post-title" itemprop="name headline">HashMap实现分析
 
               
             
@@ -366,9 +367,13 @@
                 
               
 
-              <time title="创建时间：2019-06-17 20:54:25" itemprop="dateCreated datePublished" datetime="2019-06-17T20:54:25+08:00">2019-06-17</time>
+              <time title="创建时间：2019-07-07 20:32:58 / 修改时间：22:16:21" itemprop="dateCreated datePublished" datetime="2019-07-07T20:32:58+08:00">2019-07-07</time>
             
 
+            
+              
+
+              
             
           </span>
 
@@ -384,7 +389,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工具/" itemprop="url" rel="index"><span itemprop="name">工具</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/源码分析/" itemprop="url" rel="index"><span itemprop="name">源码分析</span></a></span>
 
                 
                 
@@ -426,24 +431,29 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Install-Hexo-Client"><a href="#Install-Hexo-Client" class="headerlink" title="Install Hexo Client"></a>Install Hexo Client</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g 	<span class="comment">#install hexo</span></span><br><span class="line">$ hexo init blog 	<span class="comment">#create a folder and init it</span></span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line">$ npm install				</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+        <p>摘要<br>1.HashMap实现时用到的数据结构<br>2.HashMap实现的原理<br>3.重写equals方法需要同时重写hashCode方法的原因</p>
+<h2 id="一、HashMap实现时用到的数据结构"><a href="#一、HashMap实现时用到的数据结构" class="headerlink" title="一、HashMap实现时用到的数据结构"></a>一、HashMap实现时用到的数据结构</h2><p>###哈希表<br>1.什么是哈希表</p>
+<p>###链表</p>
+<p>###红黑树</p>
+<h2 id="二、HashMap的实现原理"><a href="#二、HashMap的实现原理" class="headerlink" title="二、HashMap的实现原理"></a>二、HashMap的实现原理</h2><p>###1.存储结构是什么样的<br>java7以前采用数组+链表的形式,数组用来实现哈希表，链表用来解决哈希冲突，在java8中，对于节点数大于8的链表，将使用红黑树代替链表来存储元素。这样有什么好处?</p>
+<p>HashMap中含有一个Map.Entry类型的数组table，用来存放元素。也就是说table数组的元素是Map.Entry类的实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transient</span> Node&lt;K,V&gt;[] table <span class="comment">//Node&lt;K,V&gt; 实现了 Map.Entry接口</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="Change-Theme"><a href="#Change-Theme" class="headerlink" title="Change Theme"></a>Change Theme</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line">    <span class="keyword">final</span> K key;</span><br><span class="line">    V value;</span><br><span class="line">    Node&lt;K,V&gt; next; <span class="comment">//下一个节点</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Objects.hashCode(key) ^ Objects.hashCode(value);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (o == <span class="keyword">this</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (o <span class="keyword">instanceof</span> Map.Entry) &#123;</span><br><span class="line">            Map.Entry&lt;?,?&gt; e = (Map.Entry&lt;?,?&gt;)o;</span><br><span class="line">                <span class="keyword">if</span> (Objects.equals(key, e.getKey()) &amp;&amp;</span><br><span class="line">                    Objects.equals(value, e.getValue()))</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>edit <code>file _config.yml</code></p>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>###2.如何构建哈希表<br>HashMap提供了四种构造函数，如果用户没有传递initialCapacity和loadFactor这两个参数，会使用默认值initialCapacity=16、loadFactor=0.75f</p>
+<p>构造函数中对initialCapacity和loadFactor进行了数值校验，核心函数是<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">```java</span><br><span class="line">public HashMap(int initialCapacity, float loadFactor) &#123;</span><br><span class="line">    if (initialCapacity &lt; 0)</span><br><span class="line">        throw new IllegalArgumentException(&quot;Illegal initial capacity: &quot; +</span><br><span class="line">        initialCapacity);</span><br><span class="line">        if (initialCapacity &gt; MAXIMUM_CAPACITY)</span><br><span class="line">            initialCapacity = MAXIMUM_CAPACITY;</span><br><span class="line">        if (loadFactor &lt;= 0 || Float.isNaN(loadFactor))</span><br><span class="line">            throw new IllegalArgumentException(&quot;Illegal load factor: &quot; +</span><br><span class="line">            loadFactor);</span><br><span class="line">        this.loadFactor = loadFactor;</span><br><span class="line">        this.threshold = tableSizeFor(initialCapacity);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">```java</span><br><span class="line">//返回一个比cap大且是2的幂次的整数，如cap=10，返回2^4=16。</span><br><span class="line">//这个算法的原理是什么？</span><br><span class="line">static final int tableSizeFor(int cap) &#123;</span><br><span class="line">    int n = cap - 1;</span><br><span class="line">    n |= n &gt;&gt;&gt; 1;</span><br><span class="line">    n |= n &gt;&gt;&gt; 2;</span><br><span class="line">    n |= n &gt;&gt;&gt; 4;</span><br><span class="line">    n |= n &gt;&gt;&gt; 8;</span><br><span class="line">    n |= n &gt;&gt;&gt; 16;</span><br><span class="line">    return (n &lt; 0) ? 1 : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save <span class="comment">#install hexo git</span></span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>通过分析构造函数，发现此时并没有创建存储元素的数组，只是再为创建数组初始化了一些参数</p>
+<p>###3.HashMap的容量值为什么是2的整数次幂</p>
+<p>###4.如何计算元素的hash</p>
+<p>###5.哈希冲突的处理方法</p>
+<p>###6.容器如何动态扩容</p>
+<p>###7.如何将元素放入容器</p>
+<p>###8.如何从容器中取出元素</p>
+<p>###9.装载因子默认为0.75的原因</p>
+<h2 id="三、重写equals方法需要同时重写hashCode方法的原因"><a href="#三、重写equals方法需要同时重写hashCode方法的原因" class="headerlink" title="三、重写equals方法需要同时重写hashCode方法的原因"></a>三、重写equals方法需要同时重写hashCode方法的原因</h2><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://www.cnblogs.com/chengxiao/p/6059914.html" target="_blank" rel="noopener">HashMap实现原理及源码分析</a><br><a href="https://www.cnblogs.com/yangming1996/p/7997468.html" target="_blank" rel="noopener">HashMap实现原理及源码分析(Java 8)</a></p>
 
       
     </div>
@@ -465,6 +475,17 @@
 
     <footer class="post-footer">
       
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/源码分析/" rel="tag"># 源码分析</a>
+          
+        </div>
+      
 
       
       
@@ -474,8 +495,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/17/面试题之数据结构与算法/" rel="next" title="面试题之数据结构与算法">
-                <i class="fa fa-chevron-left"></i> 面试题之数据结构与算法
+              <a href="/2019/06/24/英语口语学习/" rel="next" title="英语口语学习">
+                <i class="fa fa-chevron-left"></i> 英语口语学习
               </a>
             
           </div>
@@ -483,10 +504,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/24/英语口语学习/" rel="prev" title="英语口语学习">
-                英语口语学习 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -653,7 +670,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Hexo-Client"><span class="nav-number">1.1.</span> <span class="nav-text">Install Hexo Client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Change-Theme"><span class="nav-number">1.2.</span> <span class="nav-text">Change Theme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.3.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.4.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.5.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.6.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、HashMap实现时用到的数据结构"><span class="nav-number">1.</span> <span class="nav-text">一、HashMap实现时用到的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、HashMap的实现原理"><span class="nav-number">2.</span> <span class="nav-text">二、HashMap的实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、重写equals方法需要同时重写hashCode方法的原因"><span class="nav-number">3.</span> <span class="nav-text">三、重写equals方法需要同时重写hashCode方法的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>
