@@ -96,17 +96,18 @@
 
 
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="1234561.为什么要对数据库进行并发控制2.并发操作可能会产生哪几类数据不一致？用什么方法能避免各种不一致的情况3.并发控制技术的目的是什么4.```可串行化调度```和```可串行性``` 的联系与区别。5.调度的可串行性存在的原因，如何保证并发调度的可串行性6.并发控制方法有哪些，每种方法是如何实现的，每种方法的优缺点是什么，并发控制方法解决了什么问题  事务的并行运行带来的问题数据对象对">
+<meta name="keywords" content="数据库数据库系统概论,计算机基础,核心知识">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello Hexo">
-<meta property="og:url" content="http://yoursite.com/2019/06/17/hello-hexo/index.html">
+<meta property="og:title" content="数据库的并发控制">
+<meta property="og:url" content="http://yoursite.com/2019/08/01/数据库的并发控制/index.html">
 <meta property="og:site_name" content="Ocean&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="1234561.为什么要对数据库进行并发控制2.并发操作可能会产生哪几类数据不一致？用什么方法能避免各种不一致的情况3.并发控制技术的目的是什么4.```可串行化调度```和```可串行性``` 的联系与区别。5.调度的可串行性存在的原因，如何保证并发调度的可串行性6.并发控制方法有哪些，每种方法是如何实现的，每种方法的优缺点是什么，并发控制方法解决了什么问题  事务的并行运行带来的问题数据对象对">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-17T12:54:25.088Z">
+<meta property="og:updated_time" content="2019-07-31T17:32:38.236Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello Hexo">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="数据库的并发控制">
+<meta name="twitter:description" content="1234561.为什么要对数据库进行并发控制2.并发操作可能会产生哪几类数据不一致？用什么方法能避免各种不一致的情况3.并发控制技术的目的是什么4.```可串行化调度```和```可串行性``` 的联系与区别。5.调度的可串行性存在的原因，如何保证并发调度的可串行性6.并发控制方法有哪些，每种方法是如何实现的，每种方法的优缺点是什么，并发控制方法解决了什么问题  事务的并行运行带来的问题数据对象对">
 
 
 
@@ -114,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/06/17/hello-hexo/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/01/数据库的并发控制/">
 
 
 
@@ -124,7 +125,7 @@
   };
 </script>
 
-  <title>Hello Hexo | Ocean's Blog</title>
+  <title>数据库的并发控制 | Ocean's Blog</title>
   
 
 
@@ -323,7 +324,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/17/hello-hexo/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/01/数据库的并发控制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Ocean Lee">
@@ -340,7 +341,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello Hexo
+          <h1 class="post-title" itemprop="name headline">数据库的并发控制
 
               
             
@@ -366,9 +367,13 @@
                 
               
 
-              <time title="创建时间：2019-06-17 20:54:25" itemprop="dateCreated datePublished" datetime="2019-06-17T20:54:25+08:00">2019-06-17</time>
+              <time title="创建时间：2019-08-01 00:33:44 / 修改时间：01:32:38" itemprop="dateCreated datePublished" datetime="2019-08-01T00:33:44+08:00">2019-08-01</time>
             
 
+            
+              
+
+              
             
           </span>
 
@@ -384,7 +389,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工具/" itemprop="url" rel="index"><span itemprop="name">工具</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据库/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a></span>
 
                 
                 
@@ -426,24 +431,35 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Install-Hexo-Client"><a href="#Install-Hexo-Client" class="headerlink" title="Install Hexo Client"></a>Install Hexo Client</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g 	<span class="comment">#install hexo</span></span><br><span class="line">$ hexo init blog 	<span class="comment">#create a folder and init it</span></span><br><span class="line">$ <span class="built_in">cd</span> blog</span><br><span class="line">$ npm install				</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+        <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.为什么要对数据库进行并发控制</span><br><span class="line">2.并发操作可能会产生哪几类数据不一致？用什么方法能避免各种不一致的情况</span><br><span class="line">3.并发控制技术的目的是什么</span><br><span class="line">4.<span class="code">```可串行化调度```和```可串行性``` 的联系与区别。</span></span><br><span class="line"><span class="code">5.调度的可串行性存在的原因，如何保证并发调度的可串行性</span></span><br><span class="line"><span class="code">6.并发控制方法有哪些，每种方法是如何实现的，每种方法的优缺点是什么，并发控制方法解决了什么问题</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="Change-Theme"><a href="#Change-Theme" class="headerlink" title="Change Theme"></a>Change Theme</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<h2 id="事务的并行运行带来的问题"><a href="#事务的并行运行带来的问题" class="headerlink" title="事务的并行运行带来的问题"></a>事务的并行运行带来的问题</h2><p>数据对象对事务来说是共享资源，事务在并发运行时容易造成数据不一致的问题。数据不一致可分为三类：修改丢失、不可重复读和脏读。<br>事务的并行运行破坏了事务的隔离性和一致性。</p>
+<p>通过一个具体的实例来理解一下数据不一致<br>a.甲售票点读出某航班剩余票数A，设A=16<br>b.乙售票点读出统一航班剩余票数A，A也是16<br>c.甲售票点卖出一张票，修改剩余票数A=A-1=15，将剩余票数写回数据库<br>d.乙售票点卖出一张票，修改剩余票数A=A-1=15，将剩余票数写回数据库</p>
+<p>此时发现明明卖出了两张票，剩余票数却只修改了1，破坏了数据库的一致性</p>
+<p>数据的不一致性表现为</p>
+<ul>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">  两个事务(T1,T2)同时读取A的值,T2的提交结果破坏了T1的提交结果，导致T1的修改丢失</span><br><span class="line">  </span><br><span class="line">* 不可重复读</span><br><span class="line">  根据事务T2的操作(修改、删除、新增)，可细分为三种情况</span><br><span class="line">  事务T1读取数据A后，事务T2提交了对A的修改，导致事务T1读取的A值与之前不一样</span><br><span class="line">  事务T1读取数据A后，事务T2提交了对A的删除，导致事务T1读不到A的值</span><br><span class="line">  事务T1读取数据A后，事务T2提交了对A的新增，导致事务T1读到了两个A值</span><br><span class="line"></span><br><span class="line">  后两种情况又称为幻影现象</span><br><span class="line"></span><br><span class="line">* 脏读(读不正确的数据)</span><br><span class="line">  事务T1修改了A的值并提交，事务T2读取A的值，此时事务T1因为某种原因撤销提交，A恢复原值，T2读到的数据A与数据库中的数据A不一致</span><br><span class="line"></span><br><span class="line">## 并发调度的可串行性</span><br><span class="line"></span><br><span class="line">### 问题</span><br><span class="line"></span><br><span class="line">不同事务的调度是由DBMS来完成的。DBMS对事务不同的调度策略可能会产生不同的结果，那么什么样的调度是正确的的呢？</span><br><span class="line"></span><br><span class="line">### 可串行化调度</span><br><span class="line"></span><br><span class="line">#### 什么是可串行化调度</span><br><span class="line"></span><br><span class="line">多个事务的并发结果是正确的，当且仅当其结果与按某一次序串行执行这些事务的结果相同时，则称这次的调度策略是可串行化的</span><br><span class="line"></span><br><span class="line">```可串行性```是并发事务正确调度的准则。一个给定的并发调度，当且仅当他是```可串行化```的，才认为他是```正确调度</span><br></pre></td></tr></table></figure>
 
-<p>edit <code>file _config.yml</code></p>
-<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="冲突操作"><a href="#冲突操作" class="headerlink" title="冲突操作"></a>冲突操作</h4><p>冲突操作是指不同事务对同一数据对象的读写操作和写写操作，其他操作是非冲突操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 具有什么样性质的调度是可串行化的调度，如何判断调度是可串行化的调度</span><br><span class="line"></span><br><span class="line">一个调度Sc在保证冲突操作次序不变的情况下，通过交换两个事务不冲突操作，得到一个新的调度Sc&apos;，若Sc&apos;是串行的，则Sc&apos;被称为冲突可串行化的调度</span><br><span class="line">```若一个调度是冲突可串行化，则这个调度是可串行化调度</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save <span class="comment">#install hexo git</span></span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p><code>冲突可串行化调度是可串行化调度的充分条件。存在不满足冲突可串行化条件的可串行化调度</code></p>
+<p>举例来说明以上内容</p>
+<h2 id="并发控制的技术"><a href="#并发控制的技术" class="headerlink" title="并发控制的技术"></a>并发控制的技术</h2><h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>解决数据不一致的问题，保证调度的可串行性</p>
+<ul>
+<li>封锁(locking)</li>
+<li>时间戳(timestamp)</li>
+<li>乐观控制法(optimistc scheduler)</li>
+<li>多版本并发控制(multi-version concurrency contral ,MVCC)</li>
+</ul>
+<h3 id="封锁"><a href="#封锁" class="headerlink" title="封锁"></a>封锁</h3><p>含义<br>事务在访问数据对象(表、记录、字段)，向系统申请，对所要访问的数据对象加锁。加锁后事务对数据对象有一定的控制。</p>
+<p>封锁类型<br>封锁的类型决定了对数据对象的控制<br>排它锁(exclusive locks)<br>共享锁(share locks)</p>
+<p>封锁协议<br>规则</p>
+<p>活锁与死锁</p>
+<p>是</p>
+<h3 id="时间戳"><a href="#时间戳" class="headerlink" title="时间戳"></a>时间戳</h3><h3 id="乐观控制法"><a href="#乐观控制法" class="headerlink" title="乐观控制法"></a>乐观控制法</h3><h3 id="多版本并发控制"><a href="#多版本并发控制" class="headerlink" title="多版本并发控制"></a>多版本并发控制</h3><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://www.eecs.harvard.edu/~htk/publication/1981-tods-kung-robinson.pdf" target="_blank" rel="noopener">乐观锁论文</a><br><a href="null">数据库概论(第五版) 王珊 萨师轩编著</a></p>
 
       
     </div>
@@ -465,6 +481,19 @@
 
     <footer class="post-footer">
       
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/数据库数据库系统概论/" rel="tag"># 数据库数据库系统概论</a>
+          
+            <a href="/tags/计算机基础/" rel="tag"># 计算机基础</a>
+          
+            <a href="/tags/核心知识/" rel="tag"># 核心知识</a>
+          
+        </div>
+      
 
       
       
@@ -474,8 +503,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/17/面试题之数据结构与算法/" rel="next" title="面试题之数据结构与算法">
-                <i class="fa fa-chevron-left"></i> 面试题之数据结构与算法
+              <a href="/2019/08/01/数据库恢复技术/" rel="next" title="数据库恢复技术">
+                <i class="fa fa-chevron-left"></i> 数据库恢复技术
               </a>
             
           </div>
@@ -483,10 +512,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/24/英语口语学习/" rel="prev" title="英语口语学习">
-                英语口语学习 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -667,7 +692,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Hexo-Client"><span class="nav-number">1.1.</span> <span class="nav-text">Install Hexo Client</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Change-Theme"><span class="nav-number">1.2.</span> <span class="nav-text">Change Theme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.3.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.4.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.5.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.6.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#事务的并行运行带来的问题"><span class="nav-number">1.</span> <span class="nav-text">事务的并行运行带来的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#冲突操作"><span class="nav-number">1.0.1.</span> <span class="nav-text">冲突操作</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#并发控制的技术"><span class="nav-number">2.</span> <span class="nav-text">并发控制的技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#目的"><span class="nav-number">2.1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封锁"><span class="nav-number">2.2.</span> <span class="nav-text">封锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间戳"><span class="nav-number">2.3.</span> <span class="nav-text">时间戳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乐观控制法"><span class="nav-number">2.4.</span> <span class="nav-text">乐观控制法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多版本并发控制"><span class="nav-number">2.5.</span> <span class="nav-text">多版本并发控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li></div>
             
 
           </div>
